@@ -6,7 +6,7 @@ const csrf = require('csurf');
 const csrfProtection = csrf();
 
 const storeSession = new mongodbStore({
-    uri : `mongodb+srv://${process.env.MONGO_USERNAME || 'mypc'}:${process.env.MONGO_PASSWORD || '12345'}@crudapp.2y28t.mongodb.net/${process.env.MONGO_DATABASE_NAME || 'Shop'}?retryWrites=true&w=majority`,
+    uri : `mongodb+srv://${process.env.MONGO_USERNAME }:${process.env.MONGO_PASSWORD }@crudapp.2y28t.mongodb.net/${process.env.MONGO_DATABASE_NAME }?retryWrites=true&w=majority`,
     //pass - 12345  databse name - Shop, username - mypc, 
     collection: 'session',
 })
