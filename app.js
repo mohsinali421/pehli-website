@@ -20,7 +20,6 @@ app.set('view engine','ejs');
 app.set('views','views');
 
 
-
 const routerAdmin = require('./routes/admin');
 const routerShop = require('./routes/shop');
 const authroutes = require('./routes/auth');
