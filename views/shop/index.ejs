@@ -2,9 +2,10 @@
 </head>
 <body>
 <%- include('../includes/navigation.ejs') %>
-
+<h1>Shopping Page Website</h1>
 <% if (hasProducts) { %>
 <div class="grid">
+    
     <% for (let product of prods) { %>
     <article class="card product-item">
         <header class="card__header">
@@ -18,8 +19,15 @@
             <p class="product__description"><%= product.description %></p>
         </div>
         <div class="card__actions">
-            <%- include('../includes/add-to-cart.ejs',{product:product}) %>
-        </div>
+            <a href="/products/<%= product._id %>" ><button class="btn">Details</button></a>
+        
+        
+
+     
+
+    </div>
+
+        
     </article>
     <% } %>
 </div>

@@ -1,19 +1,19 @@
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
+const mongoose = require('mongoose');
 const mongodbStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const csrfProtection = csrf();
 
-const storeSession = new mongodbStore({
-    uri : `mongodb+srv://${process.env.MONGO_USERNAME }:${process.env.MONGO_PASSWORD }@crudapp.2y28t.mongodb.net/${process.env.MONGO_DATABASE_NAME }?retryWrites=true&w=majority`,
-    //pass - 12345  databse name - Shop, username - mypc, 
-    collection: 'session',
-})
+ const storeSession = new mongodbStore({
+     //uri : `mongodb+srv://${process.env.MONGO_USERNAME }:${process.env.MONGO_PASSWORD }@crudapp.2y28t.mongodb.net/${process.env.MONGO_DATABASE_NAME }?retryWrites=true&w=majority`,
+     uri : 'mongodb+srv://mypc:12345@crudapp.2y28t.mongodb.net/Shop?retryWrites=true&w=majority',
+     //pass- 12345  databsename- Shop, username- mypc, 
+     collection: 'session',
+ })
 
 const errorController = require('./controllers/error');
-const mongoConnect = require('./util/database').MymongoConnect;
-
 const app = express();
 
 app.set('view engine','ejs');
@@ -26,23 +26,47 @@ const authroutes = require('./routes/auth');
 
 app.use(express.urlencoded({extended : true}));
 app.use(express.static(path.join(__dirname,'public')));
-app.use(session({secret: 'my secret key',resave:false,saveUninitialized:false,store:storeSession}));
 
-app.use(csrfProtection);
 
-app.use((req,res,next) => {
-    res.locals.isAuthenticated = req.session.isLoggedIn;
+//====================== uncomment ===============
+ //this is for storing session on server 
+ app.use(session({
+     secret: 'my secret key',
+     resave: false,
+     saveUninitialized: false,
+     store: storeSession,
+     
+            })
+    );
+
+ 
+    app.use(csrfProtection);
+   // code for middleware for session and csrf attack
+    app.use((req,res,next) => {
+    res.locals.isAuthenticated = req.session.isLoggedIn; //initially isLoggedIn is False
     res.locals.csrfToken = req.csrfToken();
     next();
 })
-app.use('/admin',routerAdmin);
-app.use(routerShop);
-app.use(authroutes);
-
-app.use(errorController.get404);
 
 
-mongoConnect((client) => {
-    app.listen( process.env.PORT || 2000);
+ app.use('/admin',routerAdmin);
+ app.use(routerShop);
+ app.use(authroutes);
+
+ app.use(errorController.get404);
+
+
+mongoose.connect('mongodb+srv://mypc:12345@crudapp.2y28t.mongodb.net/Shop?retryWrites=true&w=majority')
+.then(result => {
+    console.log('Listening...');
+    app.listen(4200);
 })
-//this is just comment
+.catch(err => console.log('Error is',err));
+//============================================ end ================================
+
+
+//===========================practice code --------------------
+
+// const practiceRoutes = require('./routes/practice');
+// app.use(practiceRoutes);
+// app.listen(4000);

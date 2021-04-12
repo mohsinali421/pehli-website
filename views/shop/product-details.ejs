@@ -12,9 +12,9 @@
     <h2>$<%= myproduct.price %></h2>
     <p><%= myproduct.description %></p>
     <div >
-        <%- include('../includes/add-to-cart.ejs',{product:myproduct}) %>
+       
     
-        <form action="/products" method="get">
+        <form action="/" method="get">
             <button type="submit" class="btn">Go Back</button>
         </form>
     </div>

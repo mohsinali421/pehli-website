@@ -6,28 +6,34 @@
 <%- include('../includes/navigation.ejs') %>
     
 <main>
-    <form class="product-form" action="/admin/<% if(editingMode) {%>edit-product <% } else {%>add-product <% } %>" method="POST">
+    <form class="product-form" 
+          action="/admin/<% if(editingMode) {%>edit-product <% } else {%>add-product <% } %>" 
+          method="POST">
         <div class="form-control">
             <label for="title">Title</label>
-            <input type="text" name="title" id="title" value="<% if(editingMode) {%><%= pr.title %><% }else{%> <% } %>">
+            <input type="text" name="title" id="title" 
+                    value="<% if(editingMode) {%><%= pr.title %><% }else{%> <% } %>">
         </div>
         <div class="form-control">
             <label for="imageUrl">Image URL</label>
-            <input type="text" name="imageUrl" id="imageUrl" value="<% if(editingMode) {%><%= pr.imageUrl %><% }else{%> <% } %>"">
+            <input type="text" name="imageUrl" id="imageUrl" 
+                                value="<% if(editingMode) {%><%= pr.imageUrl %><% }else{%> <% } %>"">
         </div>
         <div class="form-control">
             <label for="price">Price</label>
-            <input type="number" name="price" id="price" step="0.01" value="<% if(editingMode) {%><%= pr.price %><% }else{%> <% } %>">
+            <input type="number" name="price" id="price" step="0.01" 
+                                value="<% if(editingMode) {%><%= pr.price %><% }else{%> <% } %>">
         </div>
         <div class="form-control">
             <label for="description">Description</label>
-            <textarea rows="5"  name="description" id="description"><% if(editingMode) {%><%= pr.description %><% } %></textarea>
+            <textarea rows="5"  name="description" 
+                            id="description"><% if(editingMode) {%><%= pr.description %><% } %></textarea>
         </div>
         <input type="hidden" name="myId" value="<% if(editingMode) {%><%= pr._id %><% } %>">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
         <button class="btn" type="submit"><% if(editingMode) {%>Update Product <% } else {%>Add Product <% } %></button>
     </form>
-</main>
+</main> 
 
 <%- include('../includes/footer.ejs') %>
