@@ -6,11 +6,13 @@ const mongodbStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const csrfProtection = csrf();
 
-const MONGO_URL =  `mongodb+srv://${process.env.MONGO_USERNAME }:${process.env.MONGO_PASSWORD }@crudapp.2y28t.mongodb.net/${process.env.MONGO_DATABASE_NAME }`,
+const MONGO_URL =  `mongodb+srv://${process.env.MONGO_USERNAME }:${process.env.MONGO_PASSWORD }@crudapp.2y28t.mongodb.net/${process.env.MONGO_DATABASE_NAME }`;
+
+const MONGO_URL_FOR_DEV = 'mongodb+srv://mypc:12345@crudapp.2y28t.mongodb.net/Shop';
 
  const storeSession = new mongodbStore({
      uri : MONGO_URL,
-    // uri : 'mongodb+srv://mypc:12345@crudapp.2y28t.mongodb.net/Shop?retryWrites=true&w=majority',
+    // uri : ,
      //pass- 12345  databsename- Shop, username- mypc, 
      collection: 'session',
  })
@@ -30,7 +32,7 @@ app.use(express.urlencoded({extended : true}));
 app.use(express.static(path.join(__dirname,'public')));
 
 
-//====================== uncomment ===============
+
  //this is for storing session on server 
  app.use(session({
      secret: 'my secret key',
@@ -61,14 +63,6 @@ app.use(express.static(path.join(__dirname,'public')));
 mongoose.connect(MONGO_URL)
 .then(result => {
     console.log('Listening...');
-    app.listen(process.env.PORT||4200);
+    app.listen(process.env.PORT||3000);
 })
 .catch(err => console.log('Error is',err));
-//============================================ end ================================
-
-
-//===========================practice code --------------------
-
-// const practiceRoutes = require('./routes/practice');
-// app.use(practiceRoutes);
-// app.listen(4000);
