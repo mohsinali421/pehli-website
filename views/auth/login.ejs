@@ -27,7 +27,6 @@
                        value="<%= oldInput.password %>"
                        class="<%= validationError.find(e => e.param === 'password') ? 'invalid': '' %>">
             </div>
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <button class="btn" type="submit">Login</button>
         </form>
     </main>

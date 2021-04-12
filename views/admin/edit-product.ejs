@@ -30,7 +30,6 @@
                             id="description"><% if(editingMode) {%><%= pr.description %><% } %></textarea>
         </div>
         <input type="hidden" name="myId" value="<% if(editingMode) {%><%= pr._id %><% } %>">
-        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
 
         <button class="btn" type="submit"><% if(editingMode) {%>Update Product <% } else {%>Add Product <% } %></button>
     </form>

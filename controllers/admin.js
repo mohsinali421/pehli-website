@@ -91,6 +91,7 @@ exports.getAdminProduct = (req, res, next) => {
 
 exports.postdeleteProduct = (req, res, next) => {
   const prodId = req.body.thisProductId;
+  //alert("Are you sure you want to delete ?");
   Product.findByIdAndDelete(prodId)
     .then(() => {
       console.log('DESTROYED PRODUCT');
