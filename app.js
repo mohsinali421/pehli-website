@@ -61,7 +61,7 @@ app.use(express.static(path.join(__dirname,'public')));
 mongoose.connect(MONGO_URL)
 .then(result => {
     console.log('Listening...');
-    app.listen(4200);
+    app.listen(process.env.PORT||4200);
 })
 .catch(err => console.log('Error is',err));
 //============================================ end ================================
