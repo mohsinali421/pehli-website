@@ -32,7 +32,6 @@
                        id="confirmPassword"
                        class="<%= validationError.find(e => e.param === 'confirmPassword') ? 'invalid': '' %>">
             </div>
-            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <button class="btn" type="submit">Sign Up</button>
         </form>
     </main>
