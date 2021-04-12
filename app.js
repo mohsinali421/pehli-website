@@ -6,9 +6,11 @@ const mongodbStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const csrfProtection = csrf();
 
+const MONGO_URL =  `mongodb+srv://${process.env.MONGO_USERNAME }:${process.env.MONGO_PASSWORD }@crudapp.2y28t.mongodb.net/${process.env.MONGO_DATABASE_NAME }?retryWrites=true&w=majority`,
+
  const storeSession = new mongodbStore({
-     //uri : `mongodb+srv://${process.env.MONGO_USERNAME }:${process.env.MONGO_PASSWORD }@crudapp.2y28t.mongodb.net/${process.env.MONGO_DATABASE_NAME }?retryWrites=true&w=majority`,
-     uri : 'mongodb+srv://mypc:12345@crudapp.2y28t.mongodb.net/Shop?retryWrites=true&w=majority',
+     uri : MONGO_URL,
+    // uri : 'mongodb+srv://mypc:12345@crudapp.2y28t.mongodb.net/Shop?retryWrites=true&w=majority',
      //pass- 12345  databsename- Shop, username- mypc, 
      collection: 'session',
  })
@@ -56,7 +58,7 @@ app.use(express.static(path.join(__dirname,'public')));
  app.use(errorController.get404);
 
 
-mongoose.connect('mongodb+srv://mypc:12345@crudapp.2y28t.mongodb.net/Shop?retryWrites=true&w=majority')
+mongoose.connect(MONGO_URL)
 .then(result => {
     console.log('Listening...');
     app.listen(4200);
